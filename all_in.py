@@ -10,7 +10,7 @@ import json
 import sqlite3
 
 
-token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
+token = #token_number 
 vk_session = vk_api.VkApi(token=token)
 group_id = 184856977
 longpoll = VkBotLongPoll(vk_session, group_id)
@@ -40,7 +40,7 @@ def fixMsg(msg):
 
 for event in longpoll.listen():
 	if event.type == VkBotEventType.MESSAGE_NEW:      
-		#я вообще зеро в джейсонах, скопировала с инета, мне понравилось 
+
 		id = User_Atributes.ReadWriteMessage.ParseJson(event, group_id)[1]
 		us_id = event.object.message['from_id']
 		print(us_id, )
