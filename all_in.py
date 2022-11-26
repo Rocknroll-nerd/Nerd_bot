@@ -6,7 +6,7 @@ from commands_Pull import User_Atributes
 from sqlite3 import Error
 
 
-conn =  sq.connect('users.db')
+conn =  sq.connect('db/users.db')
 cur = conn.cursor()
 
 def create_table(conn, create_table_sql):

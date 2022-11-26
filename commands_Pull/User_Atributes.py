@@ -48,12 +48,11 @@ class UserInfo():
         #print(len(birthday))
         
     def BirthTime(event, vk_session):
-        birthtime = '09:30:00'
+        birthtime = '?'
         #ReadWriteMessage.WriteMsg(event, vk_session, id,  'Мне нужно твое время рождения в формате HH:MM:SS'+'\n'+'Например: 09:30:00')
         #нужно чтобы он читал следующее за этим сообщение, 
         #сохранял по айди в джейсон и преобразовывал его в формат %H:%M:%S
         #в противном случае выдавал ошибку мол я не понимаю введи еще раз
-
         return str(birthtime)
 
     def Sex(event, vk_session):
