@@ -44,25 +44,32 @@ class UserInfo():
     def BirthDate(event,vk_session):
         user_get = UserInfo.collectInfo(event, vk_session)
         birthday = user_get['bdate'].split(".")
-        return birthday
+        return str(birthday)
         #print(len(birthday))
         
-    def BirthTime(event, vk_session, id):
-        birthtime = []
-        ReadWriteMessage.WriteMsg(event, vk_session, id,  'Мне нужно твое время рождения в формате HH:MM:SS'+'\n'+'Например: 09:30:00')
+    def BirthTime(event, vk_session):
+        birthtime = '09:30:00'
+        #ReadWriteMessage.WriteMsg(event, vk_session, id,  'Мне нужно твое время рождения в формате HH:MM:SS'+'\n'+'Например: 09:30:00')
         #нужно чтобы он читал следующее за этим сообщение, 
         #сохранял по айди в джейсон и преобразовывал его в формат %H:%M:%S
         #в противном случае выдавал ошибку мол я не понимаю введи еще раз
 
-        return birthtime
+        return str(birthtime)
 
     def Sex(event, vk_session):
         #пол в цифрах, 1 = женский, потому что все давно знают, миром правит матриархат
         #0 = человек без пола, жалко его...
         sex = UserInfo.collectInfo(event, vk_session)['sex']
         return sex
+    
+    def City(event, vk_session):
+        user_get = UserInfo.collectInfo(event, vk_session)
+        city=user_get['city']['title']
+        code_city = user_get['city']['id']
+        return str(city)
 
 
+    
 
 class ReadWriteMessage():
     def  __init__(self, event, vk_session, group_id, id):
