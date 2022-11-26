@@ -36,7 +36,7 @@ if conn is not None:
 else:
     print("Error! cannot create the database connection.")
 
-token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
+token = #token
 vk_session = vk_api.VkApi(token=token)
 group_id = 184856977
 longpoll = VkBotLongPoll(vk_session, group_id)
