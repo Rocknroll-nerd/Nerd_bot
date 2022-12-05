@@ -10,7 +10,7 @@ import json
 import sqlite3
 
 
-token = #token_number 
+token = #token
 vk_session = vk_api.VkApi(token=token)
 group_id = 184856977
 longpoll = VkBotLongPoll(vk_session, group_id)
