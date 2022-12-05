@@ -12,7 +12,7 @@ import json
 from vk_api.bot_longpoll import VkBotEventType
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-import Error
+
 
 
 
@@ -49,7 +49,7 @@ class UserInfo():
         try:
             birthday = user_get['bdate']
             return birthday
-        except Error as e:
+        except KeyError as e:
             print(e)
         #dict_date = dict(zip(times, birthday.split("."))) 
         
@@ -69,7 +69,7 @@ class UserInfo():
         try:
             sex = UserInfo.collectInfo(event, vk_session)['sex']
             return sex
-        except Error as e:
+        except KeyError as e:
             print(e)
             
     
@@ -79,7 +79,7 @@ class UserInfo():
             city=user_get['city']['title']
         #code_city = user_get['city']['id']
             return str(city)
-        except Error as e:
+        except KeyError as e:
             print(e)
     
 

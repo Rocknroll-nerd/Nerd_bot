@@ -7,7 +7,7 @@ from sqlite3 import Error
 
 
 conn =  sq.connect('db/users.db')
-cur = conn.cursor()
+
 
 def create_table(conn, create_table_sql):
     """ create a table from the create_table_sql statement
@@ -36,22 +36,26 @@ if conn is not None:
 else:
     print("Error! cannot create the database connection.")
 
-token = #token
+token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
 vk_session = vk_api.VkApi(token=token)
 group_id = 184856977
 longpoll = VkBotLongPoll(vk_session, group_id)
 
 def create_usinfo(conn, usinfo):
     cur = conn.cursor()
-    #заменить на unsert or ignore, сделать функции для апдейта и удаления себя из бд
-
     sql_ = '''INSERT OR IGNORE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
     cur.execute(sql_, usinfo)
     conn.commit()
     return cur.lastrowid
 
 def update_usinfo(conn, usinfo):
-    sql_ = '''INSERT OR UPDATE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
+    sql_ = '''UPDATE userInfo 
+        SET gender = ?, city = ?, 
+            btime = ?, bdate = ? 
+        WHERE id = ?'''
+    cur = conn.cursor()
+    cur.execute(sql_, usinfo)
+    conn.commit()
 
 def del_usinfo(conn, usinfo):
     #обязательно: ограничение по id, чтобы не было возможности удалять всех подряд
