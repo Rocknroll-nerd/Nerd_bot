@@ -36,17 +36,29 @@ if conn is not None:
 else:
     print("Error! cannot create the database connection.")
 
-token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
+token = #token
 vk_session = vk_api.VkApi(token=token)
 group_id = 184856977
 longpoll = VkBotLongPoll(vk_session, group_id)
 
 def create_usinfo(conn, usinfo):
     cur = conn.cursor()
-    sql_ = ''' INSERT OR IGNORE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
+    #заменить на unsert or ignore, сделать функции для апдейта и удаления себя из бд
+
+    sql_ = '''INSERT OR IGNORE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
     cur.execute(sql_, usinfo)
     conn.commit()
     return cur.lastrowid
+
+def update_usinfo(conn, usinfo):
+    sql_ = '''INSERT OR UPDATE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
+
+def del_usinfo(conn, usinfo):
+    #обязательно: ограничение по id, чтобы не было возможности удалять всех подряд
+    #писать ворнинги, типа удалить эту нк может только пользователь (вытянуть ФИО по ID)
+
+    pass
+
 
 def userFriendlyData(user):
     sex = user[3]
@@ -55,16 +67,17 @@ def userFriendlyData(user):
     elif sex == 2:
         gender = "мужской"
     else:    
-        gender = ""    
-    m = 'Имя:{} \n Пол:{} \n Город: {} \n Время: {} \n Дата: {}'.format(user[1:3], gender, user[4], user[5], user[6])
-    return m
+        gender = "не указан"    
+    return '\n Имя: {} {} \n Пол: {} \n Город: {} \n Время: {} \n Дата: {}'.format(user[1], user[2], gender, user[4], user[5], user[6])
+    
 
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         if '.натальная карта' in str(event).lower():
             us_id = event.object.message['from_id']
             id = User_Atributes.ReadWriteMessage.ParseJson(event, group_id)[1]
-            user = (us_id, User_Atributes.UserInfo.userFirstName(event, vk_session), User_Atributes.UserInfo.userSurname(event, vk_session), User_Atributes.UserInfo.Sex(event, vk_session), User_Atributes.UserInfo.City(event, vk_session), User_Atributes.UserInfo.BirthTime(event, vk_session), User_Atributes.UserInfo.BirthDate(event, vk_session))
+            UI = User_Atributes.UserInfo
+            user = (us_id, UI.userFirstName(event, vk_session), UI.userSurname(event, vk_session), UI.Sex(event, vk_session), UI.City(event, vk_session), UI.BirthTime(event, vk_session), UI.BirthDate(event, vk_session))
             create_usinfo(conn, user)
             User_Atributes.ReadWriteMessage.WriteMsg(vk_session, id, "Ваши данные: \n" + userFriendlyData(user))
             

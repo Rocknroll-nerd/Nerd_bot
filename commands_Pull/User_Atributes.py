@@ -6,19 +6,21 @@
 """
 Второй класс парсит json файл, ищет слова-триггеры и выводит сообщения в беседу 
 """
+#на случай, если добавлю возможность заменить "." - self.tag = tag 
 from datetime import datetime
-
-from itertools import count
 import json
 from vk_api.bot_longpoll import VkBotEventType
+import vk_api
+from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
+import Error
+
+
 
 class UserInfo():
-    def  __init__(self, event, vk_session, id, tag):
+    def  __init__(self, event, vk_session, id):
         self.event = event
         self.vk_session = vk_session
         self.id = id
-        #на случай, если добавлю возможность заменить "."
-        self.tag = tag
     
     def collectInfo(event, vk_session):
         vk = vk_session.get_api()
@@ -43,8 +45,14 @@ class UserInfo():
     #format DD.MM.YYYY нужно дописать код с заполнением общего формата
     def BirthDate(event,vk_session):
         user_get = UserInfo.collectInfo(event, vk_session)
-        birthday = user_get['bdate'].split(".")
-        return str(birthday)
+        times = ['day', 'month', 'year']
+        try:
+            birthday = user_get['bdate']
+            return birthday
+        except Error as e:
+            print(e)
+        #dict_date = dict(zip(times, birthday.split("."))) 
+        
         #print(len(birthday))
         
     def BirthTime(event, vk_session):
@@ -53,21 +61,26 @@ class UserInfo():
         #нужно чтобы он читал следующее за этим сообщение, 
         #сохранял по айди в джейсон и преобразовывал его в формат %H:%M:%S
         #в противном случае выдавал ошибку мол я не понимаю введи еще раз
-        return str(birthtime)
+        return birthtime
 
     def Sex(event, vk_session):
         #пол в цифрах, 1 = женский, потому что все давно знают, миром правит матриархат
         #0 = человек без пола, жалко его...
-        sex = UserInfo.collectInfo(event, vk_session)['sex']
-        return sex
+        try:
+            sex = UserInfo.collectInfo(event, vk_session)['sex']
+            return sex
+        except Error as e:
+            print(e)
+            
     
     def City(event, vk_session):
         user_get = UserInfo.collectInfo(event, vk_session)
-        city=user_get['city']['title']
-        code_city = user_get['city']['id']
-        return str(city)
-
-
+        try:
+            city=user_get['city']['title']
+        #code_city = user_get['city']['id']
+            return str(city)
+        except Error as e:
+            print(e)
     
 
 class ReadWriteMessage():
