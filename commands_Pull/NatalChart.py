@@ -3,22 +3,7 @@ import sqlite3
 """
 Класс, описывающий атрибуты натальной карты, собирает нужные данные и формирует картинку о пользователе
 """
-db = sqlite3.connect('action.db')
-sql = db.cursor('')
-sql.execute("""CREATE TABLE IF NOT EXISTS users (
-    userId.BIGINT,
-    act TEXT,
-    fio TEXT,
-    gender TEXT,
-    birthdate TEXT,
-    birthtime TEXT,
-    city TEXT,
-    country TEXT
-    )""")
 
-db.commit()
-userAct = '0'
-sendM = User_Atributes.ReadWriteMessage.WriteMessage()
 
 class NatalChart():
     def __init___(self, response, name, bdate, btime, sex, city, country):
