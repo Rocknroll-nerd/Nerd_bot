@@ -16,5 +16,4 @@ class CardOfTheDay:
         self.d = description
         #if ".карта дня" in str(event).lower():
 		#	card = dayCard[random.randint(1, len(dayCard))]
-		#	vk_session.method("messages.send", {"peer_id": id, "message": str(card[0])+'\n' +'\n' +str(card[1]), "attachment": str(card[2]), "random_id": 0})
-
+        #   vk_session.method("messages.send", {"peer_id": id, "random_id": 0, "attachment": ''})
