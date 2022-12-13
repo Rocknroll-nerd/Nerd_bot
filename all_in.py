@@ -39,11 +39,6 @@ if conn is not None:
 else:
     print("Error! cannot create the database connection.")
 
-token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
-vk_session = vk_api.VkApi(token=token)
-group_id = 184856977
-longpoll = VkBotLongPoll(vk_session, group_id)
-
 def create_usinfo(conn, usinfo):
     cur = conn.cursor()
     sql_ = '''INSERT OR IGNORE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
@@ -76,6 +71,7 @@ def userFriendlyData(user):
         gender = "не указан"    
     return '\n Имя: {} {} \n Пол: {} \n Город: {} \n Время: {} \n Дата: {}'.format(user[1], user[2], gender, user[4], user[5], user[6])
 
+#Конвертация svg в png
 def create_png(us_id):
     path = 'db/charts/'
     path_svg = '{}{}NatalChart.svg'.format(path, us_id)
@@ -84,15 +80,14 @@ def create_png(us_id):
         print('png есть')
     else:             
         drawing = svg2rlg(path_svg)
-        # download output file - скачиваем JPG картинку
         renderPM.drawToFile(drawing, path_png, fmt='PNG')
         os.delete()
 
-#работает внутри чата, позже добавится возможность писать в лс беседы
+#работает внутри чата, позже добавится возможность писать в лс группы
 def main():
-    token = '4cddc11e4389db86810ee2d30ad489af34bf6f4121b3e4a2a4a66e9770b9d90791c179e4cdae8a5206b76'
+    token = #token
     vk_session = vk_api.VkApi(token=token)
-    group_id = 184856977
+    group_id = #group_id
     longpoll = VkBotLongPoll(vk_session, group_id)
     upload = VkUpload(vk_session)
     for event in longpoll.listen():
