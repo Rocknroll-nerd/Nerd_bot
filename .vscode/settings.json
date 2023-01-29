@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "./commands_Pull"
+        "./commands_Pull",
+        "./kerykeion-develop/kerykeion/charts"
     ]
 }

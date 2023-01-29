@@ -14,9 +14,10 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 
 
-
-
 class UserInfo():
+    """ Вытаскивает данные пользователя: имя, фамилия, пол, 
+                                город рождения, дата рождения, 
+                                время рождения """
     def  __init__(self, event, vk_session, id):
         self.event = event
         self.vk_session = vk_session
@@ -55,7 +56,7 @@ class UserInfo():
         
         #print(len(birthday))
         
-    def BirthTime(event, vk_session):
+    def BirthTime(event):
         birthtime = '?'
         #ReadWriteMessage.WriteMsg(event, vk_session, id,  'Мне нужно твое время рождения в формате HH:MM:SS'+'\n'+'Например: 09:30:00')
         #нужно чтобы он читал следующее за этим сообщение, 
@@ -84,19 +85,20 @@ class UserInfo():
     
 
 class ReadWriteMessage():
+    """Парсит json файл, ищет слова-триггеры и выводит сообщения в беседу """
     def  __init__(self, event, vk_session, group_id, id):
         self.group_id = group_id
         self.event = event
         self.vk_session = vk_session
         self.id = id
     #формат сообщений пользователю и от пользователя
-    def WriteMessage(vk_session, event, id, message: str, command):
+    def WriteMessage(vk_session, event, id, message: str, command, **args):
         tag = '.'
         if tag + command in str(event).lower():
-            vk_session.method("messages.send", {"peer_id": id, "message": message, "random_id": 0})
+            vk_session.method("messages.send", {"peer_id": id, "message": message, "random_id": 0, **args})
     #eсли нужно вызвать бота без команды
-    def WriteMsg(vk_session, id, message: str):
-        vk_session.method("messages.send", {"peer_id": id, "message": message, "random_id": 0})
+    def WriteMsg(vk_session, id, message: str, **args):
+        vk_session.method("messages.send", {"peer_id": id, "message": message, "random_id": 0, **args})
     #запись в json
     def ParseJson(event, group_id):
         d1 = event.object.message

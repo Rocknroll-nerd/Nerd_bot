@@ -1,20 +1,22 @@
 from kerykeion import KrInstance, MakeSvgInstance
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
-
 #просто пробные запуски частей
 def kk():
-    first = KrInstance("Who", 1956, 1, 21, 7, 0, "Москва")
-    
-    # Set the type, it can be Natal, Composite or Transit
+    first = KrInstance("Jack", 1990, 6, 15, 15, 15, "Roma")
     name = MakeSvgInstance(first, chart_type="Natal")
-    svg = name.makeSVG()
     
-    print(len(name.aspects_list))
- 
+    #name.output_directory = Path.home() / "charts"
+    
+    print(first.pluto)
+    name.makeSVG()
+
+def new_func(name):
+    b = name.planets_settings
+    return b
+    #print(template)
+    
+
 times = ['day', 'month', 'year']
 #dict_date = dict(zip(times, birthday.split(".")))
-
 
 def tests(birthday, times = times):
     #try except для нанов пж
@@ -25,14 +27,8 @@ def tests(birthday, times = times):
         else:
             print('введите год')
     else:
-        print(birthday)
-
-def main():
-    tests('12.8.1999')
-    tests('12.8')
-    tests('12')
-    kk()
+        print(birthday) 
     
 if __name__ == '__main__':
-    main()
+    kk()
     
