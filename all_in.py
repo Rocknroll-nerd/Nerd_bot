@@ -26,32 +26,8 @@ if conn is not None:
 else:
     print("Error! cannot create the database connection.")
 
-<<<<<<< HEAD
 """
 Создание шаблона сообщения для натальной карты
-=======
-def create_usinfo(conn, usinfo):
-    cur = conn.cursor()
-    sql_ = '''INSERT OR IGNORE INTO userInfo (userid, fname, lname, gender, city, btime, bdate) VALUES (?, ?, ?, ?, ?, ?, ?) '''
-    cur.execute(sql_, usinfo)
-    conn.commit()
-    return cur.lastrowid
-
-def update_usinfo(conn, usinfo):
-    sql_ = '''UPDATE userInfo 
-        SET gender = ?, city = ?, 
-            btime = ?, bdate = ? 
-        WHERE id = ?'''
-    cur = conn.cursor()
-    cur.execute(sql_, usinfo)
-    conn.commit()
-
-def del_usinfo(conn, usinfo):
-    #обязательно: ограничение по id, чтобы не было возможности удалять всех подряд
-    #писать ворнинги, типа удалить эту нк может только пользователь (вытянуть ФИО по ID)
-
-    pass
->>>>>>> fb7a763d28fcc8ddfb018ce75961e9f70db87684
 
 """
 def userFriendlyData(user):
@@ -64,16 +40,8 @@ def userFriendlyData(user):
         gender = "не указан"    
     return '\n Имя: {} {} \n Пол: {} \n Город: {} \n Время: {} \n Дата: {}'.format(user[1], user[2], gender, user[4], user[5], user[6])
 
-<<<<<<< HEAD
 #обработка svg в png
 def create_png(us_id, path, path_svg, path_png):
-=======
-#Конвертация svg в png
-def create_png(us_id):
-    path = 'db/charts/'
-    path_svg = '{}{}NatalChart.svg'.format(path, us_id)
-    path_png = '{}{}NatalChart.png'.format(path, us_id)
->>>>>>> fb7a763d28fcc8ddfb018ce75961e9f70db87684
     if os.path.exists(path_png): 
         print('png есть')
     else:             
@@ -92,15 +60,9 @@ def create_natal(us_id, path, path_svg, path_png):
 
 #работает внутри чата, позже добавится возможность писать в лс группы
 def main():
-<<<<<<< HEAD
-    __token = #token
+    __token = 'vk1.a.oWMejXZBUeVd-JxMUWxARis9hNxHkEOk6JhE8nMjgMVVcFoKiPc0xpg_cqKWiN62KrTemzUKu7v9OSqpFJo4dysak5TUCfQBVMC3vAyfQNaqtVv91M4CxpvlQ7c9wpf9yoHmBDPBnNE8EZloRtU9uhiShVbjy8yA407ryJn8RvGqxUSZGL3ECknlFXUJMdXbgdqBS24LjLO5noC7cKLzaA'
     vk_session = vk_api.VkApi(token=__token)
-    group_id = #id
-=======
-    token = #token
-    vk_session = vk_api.VkApi(token=token)
-    group_id = #group_id
->>>>>>> fb7a763d28fcc8ddfb018ce75961e9f70db87684
+    group_id = 217958328
     longpoll = VkBotLongPoll(vk_session, group_id)
     upload = VkUpload(vk_session)
     UI = User_Atributes.UserInfo
