@@ -60,9 +60,9 @@ def create_natal(us_id, path, path_svg, path_png):
 
 #работает внутри чата, позже добавится возможность писать в лс группы
 def main():
-    __token = 'vk1.a.oWMejXZBUeVd-JxMUWxARis9hNxHkEOk6JhE8nMjgMVVcFoKiPc0xpg_cqKWiN62KrTemzUKu7v9OSqpFJo4dysak5TUCfQBVMC3vAyfQNaqtVv91M4CxpvlQ7c9wpf9yoHmBDPBnNE8EZloRtU9uhiShVbjy8yA407ryJn8RvGqxUSZGL3ECknlFXUJMdXbgdqBS24LjLO5noC7cKLzaA'
+    __token = #token
     vk_session = vk_api.VkApi(token=__token)
-    group_id = 217958328
+    group_id = #group_id
     longpoll = VkBotLongPoll(vk_session, group_id)
     upload = VkUpload(vk_session)
     UI = User_Atributes.UserInfo
