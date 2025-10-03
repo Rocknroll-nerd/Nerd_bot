@@ -9,6 +9,7 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPM
 
 from commands_Pull import User_Atributes, CommandDB
+from config import token, group_id
 
 sql_table = """CREATE TABLE IF NOT EXISTS userInfo (
    userid INT PRIMARY KEY,
@@ -60,9 +61,9 @@ def create_natal(us_id, path, path_svg, path_png):
 
 #работает внутри чата, позже добавится возможность писать в лс группы
 def main():
-    __token = #token
+    __token = token
     vk_session = vk_api.VkApi(token=__token)
-    group_id = #group_id
+    group_id = group_id
     longpoll = VkBotLongPoll(vk_session, group_id)
     upload = VkUpload(vk_session)
     UI = User_Atributes.UserInfo
@@ -98,8 +99,20 @@ def main():
                 dict_commands = {1: "Пол", 2: "Место рождения", 3: "Дата рождения", 4: "Время рождения"}
                 message = ''.join('{} {} \n'.format(key, val) for key, val in dict_commands.items())
                 mess = 'Введите цифру позиции, которую хотите заменить:\n{}\n'.format(message)
-                User_Atributes.ReadWriteMessage.WriteMsg(vk_session, id, mess)    
-                #update_usinfo(conn, user)
+                User_Atributes.ReadWriteMessage.WriteMsg(vk_session, id, mess)
+                userChoice = 3 #спарсить цифру после message
+                match userChoice:
+                    case 1:
+                        print('no')
+                    case 2:
+                        print('non')
+                    case 3: 
+                        User_Atributes.ReadWriteMessage.WriteMsg(vk_session, id, "Введите вашу дату рождения в формате ДД.ММ.ГГГГ (пример: 01.01.1900)") 
+                        #парсинг даты рождения от пользователя
+                        update_usinfo(conn, user)
+                        user.UI.BirthDate("dafuck")
+                    case _:
+                        print('#error некорректная цифра')
 
             if '.удалить'in str(event).lower():
                 #добавить возможность удалять из бд или свои данные, клавиатура

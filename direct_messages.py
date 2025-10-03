@@ -1,3 +1,5 @@
+#попытка интегрировать клавиатуру для удобства пользователя
+
 import sqlite3 as sq
 import vk_api
 #from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
